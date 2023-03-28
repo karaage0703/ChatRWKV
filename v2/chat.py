@@ -42,10 +42,10 @@ torch.backends.cuda.matmul.allow_tf32 = True
 ########################################################################################################
 
 # args.strategy = 'cpu fp32'
-args.strategy = 'cuda fp16'
+# args.strategy = 'cuda fp16'
 # args.strategy = 'cuda:0 fp16 -> cuda:1 fp16'
 # args.strategy = 'cuda fp16i8 *10 -> cuda fp16'
-# args.strategy = 'cuda fp16i8'
+args.strategy = 'cuda fp16i8'
 # args.strategy = 'cuda fp16i8 -> cpu fp32 *10'
 # args.strategy = 'cuda fp16i8 *10+'
 
@@ -58,7 +58,9 @@ CHAT_LANG = 'English' # English // Chinese // more to come
 # Use '/' in model path, instead of '\'
 # Use convert_model.py to convert a model for a strategy, for faster loading & saves CPU RAM 
 if CHAT_LANG == 'English':
-    args.MODEL_NAME = '/fsx/BlinkDL/HF-MODEL/rwkv-4-pile-14b/RWKV-4-Pile-14B-20230313-ctx8192-test1050'
+    args.MODEL_NAME = 'RWKV-4-Pile-7B-Instruct-test4-20230326.pth'
+    # args.MODEL_NAME = './RWKV-4-Pile-14B-20230313-ctx8192-test1050'
+    # args.MODEL_NAME = '/fsx/BlinkDL/HF-MODEL/rwkv-4-pile-14b/RWKV-4-Pile-14B-20230313-ctx8192-test1050'
     # args.MODEL_NAME = '/fsx/BlinkDL/HF-MODEL/rwkv-4-pile-7b/RWKV-4-Pile-7B-20230109-ctx4096'
     # args.MODEL_NAME = '/fsx/BlinkDL/HF-MODEL/rwkv-4-pile-3b/RWKV-4-Pile-3B-20221110-ctx4096'
     # args.MODEL_NAME = 'cuda_fp16_RWKV-4-Pile-7B-20230109-ctx4096' # use convert_model.py for faster loading & saves CPU RAM
@@ -426,7 +428,7 @@ print(f'{pipeline.decode(model_tokens)}'.replace(f'\n\n{bot}',f'\n{bot}'), end='
 ########################################################################################################
 
 while True:
-    msg = prompt(f'{user}{interface} ')
+    msg = input(f'{user}{interface} ')
     if len(msg.strip()) > 0:
         on_message(msg)
     else:
